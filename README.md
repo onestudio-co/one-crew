@@ -117,12 +117,10 @@ venture-workshop/
 ├── config.py             # Configuration settings
 ├── historian.py          # Workshop Historian agent definition
 ├── requirements.txt      # Project dependencies
-├── session_logger.py     # Logging functionality
 ├── tasks.py              # Workshop tasks and process flow
 ├── utils.py              # Utility functions
 ├── venture_workshop.py   # Main application entry point
-├── reports/              # Generated reports directory
-└── logs/                 # Session logs directory
+└── reports/              # Generated reports directory
 ```
 
 ## Requirements
