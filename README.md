@@ -33,8 +33,8 @@ This application uses CrewAI to orchestrate a team of specialized AI agents that
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/venture-workshop.git
-   cd venture-workshop
+   git clone https://github.com/onestudio-co/one-crew.git
+   cd one-crew
    ```
 
 2. Create a virtual environment (optional but recommended):
