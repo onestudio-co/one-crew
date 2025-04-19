@@ -1,3 +1,28 @@
+# Environment variables
 .env
-/reports
+
+# Virtual environment
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Output files
+/reports/
 venture_workshop_results.md
+
+# Logs
+logs/
+*.log
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db

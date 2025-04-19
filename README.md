@@ -1,6 +1,9 @@
 # CrewAI Venture Monetization Workshop
 
-A multi-agent AI system designed to run a rigorous, stage-gated monetization workshop for early-stage ventures in the GCC/MENA region.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
+A multi-agent AI system designed to run a rigorous, stage-gated monetization workshop for early-stage ventures in the GCC/MENA region. This project demonstrates the power of CrewAI for complex business strategy tasks.
 
 ## Overview
 
@@ -8,12 +11,14 @@ This application uses CrewAI to orchestrate a team of specialized AI agents that
 
 ## Features
 
-- **Multi-Agent System**: Nine specialized C-suite agents with distinct roles and expertise
+- **Multi-Agent System**: Ten specialized agents including nine C-suite roles and a Workshop Historian
 - **Stage-Gated Process**: Six-step workshop with validation at each stage
 - **GCC/MENA Focus**: Conservative, realistic benchmarks for the Gulf Cooperation Council and Middle East/North Africa regions
 - **Constraint Validation**: Ensures all streams meet funding constraints ($50K for validation, $5K/month OPEX)
 - **Comprehensive Output**: Detailed analysis, prioritization, validation strategies, and pivot implications
-- **Latest AI Model**: Uses OpenAI's GPT-4.1 model for advanced reasoning and analysis
+- **Latest AI Model**: Uses OpenAI's GPT-4.1 model with web browsing capabilities for up-to-date information
+- **Step-by-Step Reporting**: Generates progress reports after each step of the workshop
+- **Detailed Documentation**: Workshop Historian agent documents the entire process, including discussions and decision-making
 
 ## Workshop Steps
 
@@ -26,25 +31,42 @@ This application uses CrewAI to orchestrate a team of specialized AI agents that
 
 ## Installation
 
-1. Make sure you have Python 3.8+ installed
-2. Install dependencies:
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/venture-workshop.git
+   cd venture-workshop
    ```
+
+2. Create a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
    pip install -r requirements.txt
    ```
-3. Set up your OpenAI API key in a `.env` file:
+
+4. Set up your OpenAI API key in a `.env` file:
    ```
    OPENAI_API_KEY=your_api_key_here
    ```
 
 ## Usage
 
-Run the workshop with your venture idea:
+1. Run the workshop with your venture idea:
+   ```bash
+   python venture_workshop.py
+   ```
 
-```
-python venture_workshop.py
-```
+2. You will be prompted to enter a description of your venture idea.
 
-You will be prompted to enter a description of your venture idea. The system will then run the complete workshop and provide detailed output.
+3. The system will run the workshop step by step, updating the progress report after each step.
+
+4. The final report will be saved to `venture_workshop_results.md` and also in the `reports` directory with a timestamp.
+
+5. You can view the progress at any time by opening the `venture_workshop_results.md` file.
 
 ## Example
 
@@ -65,7 +87,9 @@ Venture Idea: A mobile app that connects local artisans in the GCC region with c
 
 The system will then run the complete workshop and provide a detailed output with monetization strategies, validation plans, and recommendations.
 
-## C-Suite Agent Team
+## Agent Team
+
+### C-Suite Agents
 
 The workshop is run by a team of specialized C-suite agents:
 
@@ -79,14 +103,43 @@ The workshop is run by a team of specialized C-suite agents:
 - **Chief Data & Analytics Officer (CDAO)**: Defines KPIs, dashboards & data-collection plans
 - **Chief Partnerships & Negotiations Officer (CPNO)**: Sources & negotiates pilot deals, channel partnerships & B2B contracts
 
+### Workshop Historian
+
+In addition to the C-suite agents, the workshop includes a Workshop Historian agent:
+
+- **Workshop Historian**: Documents the complete workshop process, including agent discussions, reasoning, and decisions. The historian creates a comprehensive report that shows the evolution of ideas throughout the workshop.
+
+## Project Structure
+
+```
+venture-workshop/
+├── agents.py             # Defines all agent roles and personalities
+├── config.py             # Configuration settings
+├── historian.py          # Workshop Historian agent definition
+├── requirements.txt      # Project dependencies
+├── session_logger.py     # Logging functionality
+├── tasks.py              # Workshop tasks and process flow
+├── utils.py              # Utility functions
+├── venture_workshop.py   # Main application entry point
+├── reports/              # Generated reports directory
+└── logs/                 # Session logs directory
+```
+
 ## Requirements
 
 - Python 3.8+
-- OpenAI API key
-- CrewAI
-- LangChain
-- Other dependencies listed in requirements.txt
+- OpenAI API key with access to GPT-4.1
+- Dependencies:
+  - crewai
+  - langchain
+  - langchain_openai
+  - python-dotenv
+  - psutil
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the LICENSE file for details.
