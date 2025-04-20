@@ -4,21 +4,13 @@ This document outlines the process of creating the Venture Monetization Workshop
 
 ## Tools and Technologies Used
 
-- **[ChatGPT-4.1](https://openai.com/gpt-4)**: Used for conceptual development, prompt engineering, and defining the agent team structure
-- **[Augment Code](https://www.augmentcode.ai/)**: VS Code extension used for the technical implementation phase
+- **[ChatGPT-4.1](https://openai.com/index/gpt-4-1/)**: Used for conceptual development, prompt engineering, and defining the agent team structure
+- **[Augment Code](https://www.augmentcode.com/)**: VS Code extension used for the technical implementation phase
 - **[CrewAI](https://github.com/joaomdmoura/crewAI)**: Framework for orchestrating multi-agent AI systems
-
-### Why GPT-4.1?
-
-We chose GPT-4.1 for this project because:
-
-1. **Web Browsing Capability**: GPT-4.1 includes a built-in web browser, allowing agents to gather up-to-date information about markets, technologies, and benchmarks
-2. **Advanced Reasoning**: The model demonstrates superior reasoning capabilities for complex business strategy tasks
-3. **Context Understanding**: GPT-4.1 shows excellent comprehension of regional market constraints and business modeling concepts
 
 ### Development Environment
 
-The technical implementation was done using the Augment Code VS Code extension rather than directly with Claude as initially mentioned. Augment Code provides an AI-powered coding assistant that integrates directly into the development environment, making it easier to generate, edit, and refine code while maintaining full control over the development process.
+The technical implementation was done using the Augment Code VS Code extension rather than directly with Claude as initially mentioned. Augment Code is an AI-powered coding assistant that integrates directly into the development environment, designed specifically for professional software engineers working with large codebases. It provides contextual code generation, editing, and refinement capabilities while maintaining full control over the development process.
 
 ## Origin Story
 
@@ -139,6 +131,18 @@ This multi-tool approach proved effective, with ChatGPT excelling at the concept
 ## Implementation with Augment Code
 
 With the master prompt and agent team defined through ChatGPT, we moved to Augment Code for the technical implementation phase. Augment Code's integration with VS Code and its capabilities in understanding complex code structures made it well-suited for this task.
+
+### Why GPT-4.1 for the Workshop?
+
+For the actual workshop execution, we chose to use GPT-4.1 as the underlying model because of its significant advantages:
+
+1. **Enhanced Coding Capabilities**: GPT-4.1 demonstrates major improvements in coding tasks, scoring 54.6% on SWE-bench Verified (compared to 33.2% for GPT-4o), making it ideal for implementing complex multi-agent systems.
+
+2. **Superior Instruction Following**: GPT-4.1 is significantly better at following complex instructions, scoring 38.3% on Scale's MultiChallenge benchmark (a 10.5% absolute increase over GPT-4o), which is crucial for our workshop's stage-gated process.
+
+3. **Long Context Understanding**: With a 1 million token context window and improved comprehension across that context, GPT-4.1 can process and understand the entire workshop history, including all agent interactions and discussions.
+
+4. **Web Browsing Capability**: GPT-4.1's built-in web browser allows our agents to gather up-to-date information about markets, technologies, and regional benchmarks, which is essential for providing realistic monetization strategies for the GCC/MENA region.
 
 ### Development Approach
 
