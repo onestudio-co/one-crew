@@ -134,6 +134,10 @@ venture-workshop/
   - python-dotenv
   - psutil
 
+## Prompt Engineering
+
+This project was developed with the assistance of AI (Claude and ChatGPT). For details on the prompt engineering techniques used to create this application, see the [PROMPT_ENGINEERING.md](PROMPT_ENGINEERING.md) file.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
