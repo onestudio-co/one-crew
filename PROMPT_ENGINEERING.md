@@ -150,25 +150,30 @@ The technical implementation followed these general steps:
 
 1. **Architecture Planning**: We discussed the overall structure of the application, deciding to use CrewAI as the framework for orchestrating the multi-agent system.
 
-2. **Component Design**: We defined the key components needed:
+2. **Staying Current with Latest Technologies**: We utilized Augment Code's web search capabilities to gather up-to-date information about:
+   - The latest CrewAI framework updates and best practices
+   - GPT-4.1's capabilities, which had been released just days before our development began
+   - Optimal implementation patterns for multi-agent systems
+
+3. **Component Design**: We defined the key components needed:
    - Agent definitions with specialized roles and backstories
    - Task definitions with stage-gating
    - Workshop flow control
    - Output formatting and reporting
 
-3. **Iterative Implementation**: Rather than generating the entire application at once, we built it piece by piece:
+4. **Iterative Implementation**: Rather than generating the entire application at once, we built it piece by piece:
    - First implementing the basic agent and task structure
    - Then adding the workshop flow logic
    - Later enhancing with features like the Workshop Historian
 
-4. **Refinement and Enhancement**: Based on testing results, we made several key improvements:
+5. **Refinement and Enhancement**: Based on testing results, we made several key improvements:
    - Added step-by-step reporting to provide real-time visibility
    - Created the Workshop Historian agent to document the process
    - Simplified the event handling to focus on core functionality
 
-5. **Documentation and Cleanup**: Finally, we improved documentation, removed unused code, and prepared the project for public sharing.
+6. **Documentation and Cleanup**: Finally, we improved documentation, removed unused code, and prepared the project for public sharing.
 
-This approach allowed us to maintain control over the development process while leveraging Claude's capabilities for code generation and problem-solving.
+This approach allowed us to maintain control over the development process while leveraging Augment Code's capabilities for code generation, problem-solving, and accessing the latest information about the technologies we were using.
 
 ## Key Prompting Techniques
 
@@ -284,7 +289,9 @@ If you're interested in building similar applications or learning more about the
 - [CrewAI Examples](https://github.com/joaomdmoura/crewAI/tree/main/examples)
 
 ### AI Development Tools
-- [Augment Code](https://www.augmentcode.ai/) - VS Code extension for AI-assisted development
+- [Augment Code](https://www.augmentcode.com/) - VS Code extension for AI-assisted development with large codebases
+- [GPT-4.1 Documentation](https://openai.com/index/gpt-4-1/) - Latest information on GPT-4.1 capabilities and features
+- [GPT-4.1 Prompting Guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide) - Best practices for prompting GPT-4.1
 - [OpenAI API Documentation](https://platform.openai.com/docs/introduction) - For working with GPT models
 - [LangChain Documentation](https://python.langchain.com/docs/get_started/introduction) - Framework for building LLM applications
 
