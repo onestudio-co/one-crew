@@ -1,6 +1,24 @@
 # Prompt Engineering for Venture Workshop
 
-This document outlines the process of creating the Venture Monetization Workshop application using AI assistance (Claude and ChatGPT). It serves as a guide for those interested in understanding how AI can be leveraged for complex application development.
+This document outlines the process of creating the Venture Monetization Workshop application using AI assistance (ChatGPT and Augment Code). It serves as a guide for those interested in understanding how AI can be leveraged for complex application development.
+
+## Tools and Technologies Used
+
+- **[ChatGPT-4.1](https://openai.com/gpt-4)**: Used for conceptual development, prompt engineering, and defining the agent team structure
+- **[Augment Code](https://www.augmentcode.ai/)**: VS Code extension used for the technical implementation phase
+- **[CrewAI](https://github.com/joaomdmoura/crewAI)**: Framework for orchestrating multi-agent AI systems
+
+### Why GPT-4.1?
+
+We chose GPT-4.1 for this project because:
+
+1. **Web Browsing Capability**: GPT-4.1 includes a built-in web browser, allowing agents to gather up-to-date information about markets, technologies, and benchmarks
+2. **Advanced Reasoning**: The model demonstrates superior reasoning capabilities for complex business strategy tasks
+3. **Context Understanding**: GPT-4.1 shows excellent comprehension of regional market constraints and business modeling concepts
+
+### Development Environment
+
+The technical implementation was done using the Augment Code VS Code extension rather than directly with Claude as initially mentioned. Augment Code provides an AI-powered coding assistant that integrates directly into the development environment, making it easier to generate, edit, and refine code while maintaining full control over the development process.
 
 ## Origin Story
 
@@ -109,17 +127,18 @@ This led to the creation of our nine specialized C-suite agents, each with disti
 
 ### Transitioning from Concept to Implementation
 
-While ChatGPT was excellent for conceptual development and prompt engineering, we decided to transition to Claude for the technical implementation phase. This decision was based on several factors:
+While ChatGPT was excellent for conceptual development and prompt engineering, we decided to transition to Augment Code VS Code extension for the technical implementation phase. This decision was based on several factors:
 
-1. **Code Generation Capabilities**: Claude demonstrated strong capabilities in generating coherent, multi-file applications
-2. **Context Window**: Claude's larger context window allowed us to work with more code at once
-3. **Complementary Strengths**: Using different AI systems at different stages leveraged their respective strengths
+1. **Integrated Development Environment**: Augment Code integrates directly into VS Code, providing a seamless coding experience
+2. **Code Generation Capabilities**: The extension demonstrated strong capabilities in generating coherent, multi-file applications
+3. **Iterative Refinement**: Augment Code excels at making targeted changes to existing code, which was crucial for our iterative approach
+4. **Complementary Strengths**: Using different AI systems at different stages leveraged their respective strengths
 
-This multi-model approach proved effective, with ChatGPT excelling at the conceptual and prompt engineering phases, while Claude handled the technical implementation.
+This multi-tool approach proved effective, with ChatGPT excelling at the conceptual and prompt engineering phases, while Augment Code handled the technical implementation.
 
-## Implementation with Claude
+## Implementation with Augment Code
 
-With the master prompt and agent team defined through ChatGPT, we moved to Claude 3.7 Sonnet for the technical implementation phase. Claude's capabilities in understanding complex code structures and generating coherent multi-file applications made it well-suited for this task.
+With the master prompt and agent team defined through ChatGPT, we moved to Augment Code for the technical implementation phase. Augment Code's integration with VS Code and its capabilities in understanding complex code structures made it well-suited for this task.
 
 ### Development Approach
 
@@ -250,5 +269,23 @@ Key insights from this process include:
 5. **Implementation Flexibility**: The technical implementation evolved based on real-time feedback, with simpler approaches often proving more effective than complex ones.
 
 This project demonstrates that complex business processes can be effectively translated into AI applications when there's a thoughtful balance between human guidance and AI capabilities. The result is not just a simulation of the original workshop, but an enhanced experience that incorporates domain expertise, regional constraints, and practical business considerations.
+
+## Resources for Developers
+
+If you're interested in building similar applications or learning more about the technologies used, here are some valuable resources:
+
+### Multi-Agent Systems
+- [CrewAI Documentation](https://docs.crewai.com/)
+- [CrewAI GitHub Repository](https://github.com/joaomdmoura/crewAI)
+- [CrewAI Examples](https://github.com/joaomdmoura/crewAI/tree/main/examples)
+
+### AI Development Tools
+- [Augment Code](https://www.augmentcode.ai/) - VS Code extension for AI-assisted development
+- [OpenAI API Documentation](https://platform.openai.com/docs/introduction) - For working with GPT models
+- [LangChain Documentation](https://python.langchain.com/docs/get_started/introduction) - Framework for building LLM applications
+
+### Prompt Engineering
+- [OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
+- [Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)
 
 By following the prompting techniques and development approach outlined in this document, you can effectively leverage AI assistants for your own complex business applications, creating tools that augment human expertise rather than simply attempting to replace it.
