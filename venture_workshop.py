@@ -63,7 +63,8 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
         agents=list(agent_dict.values()),  # Convert dictionary to list for CrewAI
         tasks=tasks,
         verbose=True,
-        process=Process.hierarchical  # Use hierarchical process to enable collaboration
+        process=Process.hierarchical,  # Use hierarchical process to enable collaboration
+        manager_llm=llm  # Use the same LLM for the manager agent
     )
 
     # Create a function to update the progress report
