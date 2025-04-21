@@ -37,12 +37,26 @@ def create_tasks(agents, venture_idea, config_file="workshop_config.json"):
                 placeholder = f"{{{context_task_id}_task.output}}"
                 description = description.replace(placeholder, f"{{{task_objects[context_task_id].output}}}")
 
+        # Add collaborative instructions to encourage agent discussion
+        collaborative_instructions = """
+        Important: This is a collaborative task. You should actively consult with other agents in the crew to get their perspectives and expertise. Consider the following:
+        1. Ask other agents for their input on specific aspects of the task
+        2. Request feedback on your initial ideas
+        3. Incorporate diverse viewpoints into your final output
+        4. Acknowledge contributions from other agents
+
+        The final output should represent a synthesis of the collective intelligence of the crew.
+        """
+
+        description = description + "\n\n" + collaborative_instructions
+
         # Create the task
         task = Task(
             description=description,
             agent=agents[task_config["agent_id"]],
             expected_output=task_config["expected_output"],
-            context=[task_objects[context_id] for context_id in task_config.get("context", []) if context_id in task_objects]
+            context=[task_objects[context_id] for context_id in task_config.get("context", []) if context_id in task_objects],
+            allow_delegation=True  # Enable delegation to encourage collaboration
         )
 
         # Add the task to the dictionaries

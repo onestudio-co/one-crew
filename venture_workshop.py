@@ -1,4 +1,4 @@
-from crewai import Crew, Process
+from crewai import Crew, Process, Task
 from langchain_openai import ChatOpenAI
 import os
 import datetime
@@ -63,7 +63,7 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
         agents=list(agent_dict.values()),  # Convert dictionary to list for CrewAI
         tasks=tasks,
         verbose=True,
-        process=Process.sequential  # We need sequential for the stage-gating
+        process=Process.hierarchical  # Use hierarchical process to enable collaboration
     )
 
     # Create a function to update the progress report

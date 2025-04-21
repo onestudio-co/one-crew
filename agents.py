@@ -57,7 +57,7 @@ def create_agents(llm, config_file="workshop_config.json"):
             "goal": agent_config["goal"],
             "backstory": agent_config["backstory"],
             "verbose": agent_config.get("verbose", True),
-            "allow_delegation": agent_config.get("allow_delegation", True),
+            "allow_delegation": True,  # Always enable delegation for collaboration
             "llm": llm
         }
 
