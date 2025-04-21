@@ -2,6 +2,7 @@ from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 import os
 import datetime
+import psutil
 from pathlib import Path
 from dotenv import load_dotenv
 from agents import create_agents
@@ -80,7 +81,22 @@ def run_venture_workshop(venture_idea):
         # Add completed steps
         progress_report += f"## Completed Steps\n\n"
         for i, (task_name, task_output) in enumerate(completed_tasks.items(), 1):
+            # Extract the outcome section if available
+            outcome = task_output
+            if "# Outcome" in task_output:
+                outcome = task_output.split("# Outcome")[1].split("# Explanation")[0].strip()
+
             progress_report += f"### Step {i}: {task_name}\n\n"
+            progress_report += f"#### Outcome\n{outcome}\n\n"
+
+            # Add a link to the detailed explanation
+            progress_report += f"[View detailed explanation](#step-{i}-details)\n\n"
+
+        # Add detailed explanations in a separate section
+        progress_report += f"## Detailed Explanations\n\n"
+        for i, (task_name, task_output) in enumerate(completed_tasks.items(), 1):
+            progress_report += f"<a id='step-{i}-details'></a>\n"
+            progress_report += f"### Step {i}: {task_name} - Details\n\n"
             progress_report += f"{task_output}\n\n"
 
         # Add footer
@@ -148,7 +164,6 @@ def run_venture_workshop(venture_idea):
 
 if __name__ == "__main__":
     # Check if a workshop is already in progress by looking for running processes
-    import psutil
     current_pid = os.getpid()
     workshop_running = False
 

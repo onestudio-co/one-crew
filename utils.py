@@ -1,5 +1,4 @@
 import re
-import json
 
 def format_markdown_table(headers, rows):
     """
@@ -122,7 +121,7 @@ def extract_financial_metrics(text):
 
 def format_workshop_output(results):
     """
-    Format the final workshop output in a clean, structured format.
+    Format the final workshop output in a clean, structured format with a summary and detailed sections.
 
     Args:
         results: Raw workshop results (CrewOutput object or string)
@@ -138,7 +137,7 @@ def format_workshop_output(results):
         # If it's already a string
         results_text = str(results)
 
-    # Extract the Workshop Historian's documentation
+    # Extract the Workshop Historian's documentation and CSO's summary
     historian_documentation = None
     workshop_summary = None
 
@@ -148,7 +147,7 @@ def format_workshop_output(results):
     current_content = []
 
     lines = results_text.split('\n')
-    for i, line in enumerate(lines):
+    for line in lines:
         if line.startswith('# Agent:'):
             # Save the previous agent's content
             if current_agent:
@@ -167,13 +166,21 @@ def format_workshop_output(results):
     # Extract the Workshop Historian's documentation
     if 'Workshop Historian' in agent_sections:
         historian_content = agent_sections['Workshop Historian']
-        if '## Final Answer:' in historian_content:
+        if '# Outcome' in historian_content:
+            # New format with Outcome/Explanation sections
+            historian_documentation = historian_content.split('# Outcome')[1].strip()
+        elif '## Final Answer:' in historian_content:
+            # Legacy format
             historian_documentation = historian_content.split('## Final Answer:')[1].strip()
 
     # Extract the Chief Strategy Officer's final summary
     if 'Chief Strategy Officer' in agent_sections:
         cso_content = agent_sections['Chief Strategy Officer']
-        if '## Final Answer:' in cso_content:
+        if '# Outcome' in cso_content:
+            # New format with Outcome/Explanation sections
+            workshop_summary = cso_content.split('# Outcome')[1].strip()
+        elif '## Final Answer:' in cso_content:
+            # Legacy format
             workshop_summary = cso_content.split('## Final Answer:')[1].strip()
 
     # Format the output
@@ -183,6 +190,18 @@ def format_workshop_output(results):
     if workshop_summary:
         formatted_output += "## Executive Summary\n\n"
         formatted_output += workshop_summary + "\n\n"
+
+    # Add a table of contents
+    formatted_output += "## Table of Contents\n\n"
+    formatted_output += "1. [Executive Summary](#executive-summary)\n"
+    formatted_output += "2. [Detailed Workshop Documentation](#detailed-workshop-documentation)\n"
+    formatted_output += "   - [Venture Definition](#venture-definition)\n"
+    formatted_output += "   - [Monetization Streams](#monetization-streams)\n"
+    formatted_output += "   - [Revenue and Expense Analysis](#revenue-and-expense-analysis)\n"
+    formatted_output += "   - [Prioritized Streams](#prioritized-streams)\n"
+    formatted_output += "   - [Validation Strategy](#validation-strategy)\n"
+    formatted_output += "   - [Pivot Implications](#pivot-implications)\n"
+    formatted_output += "3. [Final Recommendations](#final-recommendations)\n\n"
 
     # Add the historian's documentation if available
     if historian_documentation:
@@ -224,7 +243,7 @@ def format_workshop_output(results):
 
         # Add recommendations
         if "Recommendations" in sections:
-            formatted_output += "## Recommendations\n\n"
+            formatted_output += "## Final Recommendations\n\n"
             formatted_output += "\n".join(sections["Recommendations"]) + "\n\n"
 
         # If no sections were found, return the raw output
@@ -234,7 +253,7 @@ def format_workshop_output(results):
 
     # Add a footer with information about the workshop
     formatted_output += "\n---\n\n"
-    formatted_output += "*This workshop was conducted using CrewAI with GPT-4.1 and web browsing capabilities. *\n"
-    formatted_output += "*The complete workshop logs and detailed agent interactions are available in the logs directory.*\n"
+    formatted_output += "*This workshop was conducted using CrewAI with GPT-4.1 and web browsing capabilities.*\n"
+    formatted_output += "*The agents actively researched current market trends and benchmarks in the GCC/MENA region to provide realistic recommendations.*\n"
 
     return formatted_output
