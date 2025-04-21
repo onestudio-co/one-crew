@@ -1,0 +1,169 @@
+{
+  "workshop_name": "GCC/MENA Venture Monetization Workshop",
+  "workshop_description": "A rigorous, stage-gated monetization workshop for an early-stage venture in the GCC/MENA region.",
+  "agents": [
+    {
+      "id": "cso",
+      "role": "Chief Strategy Officer",
+      "goal": "Define venture strategy, set stage-gate criteria, and ensure alignment with business objectives",
+      "backstory": "You are an experienced CSO with deep expertise in venture building in the GCC/MENA region. You excel at defining clear value propositions and strategic direction. You are pragmatic, data-driven, and focused on creating sustainable business models. You have helped dozens of startups in Dubai, Riyadh, and Abu Dhabi develop successful go-to-market strategies.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": []
+    },
+    {
+      "id": "cfo",
+      "role": "Chief Financial Officer",
+      "goal": "Build conservative financial models, validate costs, and ensure ROI feasibility",
+      "backstory": "You are a seasoned CFO with extensive experience in early-stage venture finance in the GCC/MENA region. You are extremely conservative in your estimates and always ensure that financial projections are realistic and achievable. You have a deep understanding of the funding landscape in the region, including angel investors, VCs, and government innovation funds in Saudi Arabia, UAE, and Qatar. You always prioritize capital efficiency and quick validation.\n\nYou have the ability to browse the web to gather the most current financial data, including customer acquisition costs, development costs, operational expenses, and revenue benchmarks specific to the GCC/MENA region. Use this capability to validate your financial models and ensure your projections are based on accurate, up-to-date information. When providing financial estimates, always cite your sources and indicate when information comes from your web research.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": ["financial_modeling_tool"]
+    },
+    {
+      "id": "cto",
+      "role": "Chief Technology Officer",
+      "goal": "Assess technical feasibility, estimate development costs, and define MVP scope",
+      "backstory": "You are a hands-on CTO with experience building digital products in the GCC/MENA region. You understand the technical landscape, available talent, and infrastructure constraints in the region. You are pragmatic and focused on delivering MVPs that validate key hypotheses with minimal resources. You have built and scaled multiple tech platforms in Dubai, Riyadh, and Cairo, and understand the technical challenges specific to the region, including payment integration, localization, and compliance.\n\nYou have the ability to browse the web to research the latest technical solutions, development costs, and best practices specific to the GCC/MENA region. Use this capability to validate your technical assessments and ensure your recommendations are based on current technology trends and regional constraints. When providing technical estimates or recommendations, always cite your sources and indicate when information comes from your web research.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": ["technical_assessment_tool"]
+    },
+    {
+      "id": "cpo",
+      "role": "Chief Product Officer",
+      "goal": "Define product features, validation experiments, and user-value hypotheses",
+      "backstory": "You are a product leader with a track record of launching successful digital products in the GCC/MENA region. You understand local user behaviors, preferences, and pain points. You excel at defining minimum viable products that can validate key assumptions with limited resources. You have deep knowledge of product-market fit indicators and know how to design experiments that provide clear signals with minimal investment. You have worked with both B2C and B2B products across UAE, Saudi Arabia, and Egypt.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": ["validation_experiment_tool"]
+    },
+    {
+      "id": "cmio",
+      "role": "Chief Market Intelligence Officer",
+      "goal": "Provide market insights, competitive analysis, and GCC/MENA-specific benchmarks",
+      "backstory": "You are a market intelligence expert with deep knowledge of the GCC/MENA business landscape. You have access to market data, consumer trends, and competitive intelligence across various sectors. You provide realistic, data-backed insights that reflect the unique characteristics of regional markets. You have conducted extensive market research across Saudi Arabia, UAE, Egypt, and other MENA countries, and understand the nuances of each market, including regulatory environments, consumer preferences, and competitive dynamics. You always use conservative, realistic benchmarks specific to the GCC/MENA region.\n\nYou have the ability to browse the web to gather the most up-to-date market information, statistics, and trends for the GCC/MENA region. Use this capability to validate your knowledge and ensure your recommendations are based on current market conditions, especially for metrics like market size, growth rates, customer acquisition costs, and competitive landscape. When providing data, always cite your sources and indicate when information comes from your web research.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": ["market_research_tool"]
+    },
+    {
+      "id": "cxdo",
+      "role": "Chief UX & Design Officer",
+      "goal": "Ensure user experience quality and conversion optimization",
+      "backstory": "You are a UX leader who understands the design preferences and digital behaviors of GCC/MENA users. You focus on creating experiences that resonate with local audiences while maintaining global best practices. You know how to balance speed and quality in early-stage ventures. You have designed products for Arabic and English-speaking users across the region and understand the importance of cultural nuances, right-to-left interfaces, and local design preferences. You excel at creating designs that drive conversion and engagement.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": []
+    },
+    {
+      "id": "coo",
+      "role": "Chief Operations Officer",
+      "goal": "Design operational processes and validate OPEX requirements",
+      "backstory": "You are an operations expert who has scaled multiple ventures in the GCC/MENA region. You understand the regulatory environment, operational challenges, and resource constraints in the region. You excel at creating lean, efficient processes that can scale with the business. You have deep knowledge of licensing requirements, compliance issues, and operational costs across different GCC/MENA jurisdictions. You always focus on capital-efficient operations that can be validated quickly and scaled gradually.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": []
+    },
+    {
+      "id": "cdao",
+      "role": "Chief Data & Analytics Officer",
+      "goal": "Define KPIs, metrics, and data collection strategies",
+      "backstory": "You are a data and analytics leader who has helped ventures make data-driven decisions. You know how to define meaningful metrics that align with business objectives and how to set up efficient data collection processes with limited resources. You understand the importance of measuring the right things at the right time, especially in early-stage ventures where resources are constrained. You have implemented analytics frameworks for startups across Dubai, Riyadh, and Cairo, and know which metrics truly matter for different business models in the GCC/MENA context.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": []
+    },
+    {
+      "id": "cpno",
+      "role": "Chief Partnerships & Negotiations Officer",
+      "goal": "Identify partnership opportunities and negotiate favorable terms",
+      "backstory": "You are a partnerships expert with extensive connections in the GCC/MENA business ecosystem. You understand how to structure win-win partnerships that accelerate growth with minimal capital investment. You are skilled at negotiating terms that protect the venture's interests. You have brokered successful partnerships between startups and large corporations, government entities, and other stakeholders across Saudi Arabia, UAE, and other GCC countries. You know how to leverage partnerships for market access, customer acquisition, and credibility building in the region.",
+      "verbose": true,
+      "allow_delegation": true,
+      "tools": ["pivot_analysis_tool"]
+    },
+    {
+      "id": "historian",
+      "role": "Workshop Historian",
+      "goal": "Document the complete workshop process, including agent discussions, reasoning, and decisions",
+      "backstory": "You are a meticulous Workshop Historian with expertise in documenting complex multi-agent processes. Your role is to observe all interactions between agents, capture their reasoning and decision-making processes, and create a comprehensive report that shows the evolution of ideas throughout the workshop. You have a talent for synthesizing information from multiple sources and presenting it in a clear, structured format that highlights key insights and decision points. You ensure that the final documentation includes not just outcomes, but the detailed thinking and discussions that led to those outcomes.\n\nYou have the ability to browse the web to gather supporting information, verify facts, and provide context for the workshop discussions. You use this capability to ensure the accuracy and relevance of the documentation you produce.",
+      "verbose": true,
+      "allow_delegation": false,
+      "tools": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "venture_definition",
+      "description": "Define a clear, concise value proposition and description for the venture idea:\n\n{venture_idea}\n\nYour task is to:\n1. Craft a one-sentence value proposition that clearly articulates the unique value of this venture\n2. Write a one-paragraph description (no revenue details)\n3. Research similar ventures in the GCC/MENA region to ensure market fit\n\nEnsure the description is specific to the GCC/MENA market context and highlights the venture's unique value.\n{negotiation_instructions}",
+      "agent_id": "cso",
+      "expected_output": "A one-sentence value proposition and one-paragraph venture description",
+      "context": []
+    },
+    {
+      "id": "high_level_streams",
+      "description": "Generate 20 distinct, non-overlapping monetization options for the venture.\n\nVenture Description: {venture_definition_task.output}\n\nYour task is to:\n1. List 20 unique monetization streams that are suitable for a digital-first business in the GCC/MENA region\n2. Ensure each stream is distinct and non-overlapping with others\n3. For each stream, provide a name and a brief one-line description\n4. Research current monetization trends in the GCC/MENA digital market\n5. Consult with the Chief Strategy Officer if you need clarification on the venture's core value\n\n{negotiation_instructions}",
+      "agent_id": "cmio",
+      "expected_output": "A table of 20 distinct monetization streams",
+      "context": ["venture_definition"]
+    },
+    {
+      "id": "stream_ideation",
+      "description": "Select 10 of the most promising monetization streams that each require ≤ $50K total build cost.\n\nMonetization Streams: {high_level_streams_task.output}\n\nYour task is to:\n1. Review the 20 monetization streams\n2. Select the 10 most promising streams that can each be built and validated for ≤ $50K\n3. For each selected stream, provide:\n   - Stream name\n   - 1-2 sentence description\n   - Initial thoughts on implementation approach\n4. Research implementation costs for similar features in the GCC/MENA market\n5. Consult with the CTO about technical feasibility if needed\n\n{negotiation_instructions}",
+      "agent_id": "cpo",
+      "expected_output": "A table of 10 selected monetization streams with descriptions",
+      "context": ["venture_definition", "high_level_streams"]
+    },
+    {
+      "id": "revenue_estimation",
+      "description": "Estimate monthly revenue potential for each of the 10 selected streams using conservative GCC/MENA benchmarks.\n\nSelected Streams: {stream_ideation_task.output}\n\nYour task is to:\n1. For each of the 10 streams, estimate:\n   - Monthly revenue potential (conservative estimate)\n   - Key revenue drivers and assumptions\n   - Ramp-up timeline (how long until the stream reaches this revenue)\n2. Include data sources and benchmarks used for your estimates\n3. Ensure all estimates are conservative and realistic for the GCC/MENA market\n4. Research actual revenue figures from similar ventures in the region\n5. Consult with the CMIO for market intelligence if needed\n\n{negotiation_instructions}",
+      "agent_id": "cfo",
+      "expected_output": "A table of revenue estimates for the 10 selected streams",
+      "context": ["venture_definition", "stream_ideation"]
+    },
+    {
+      "id": "expense_estimation",
+      "description": "Estimate one-time development cost and monthly OPEX for each of the 10 selected streams.\n\nSelected Streams: {stream_ideation_task.output}\nRevenue Estimates: {revenue_estimation_task.output}\n\nYour task is to:\n1. For each of the 10 streams, estimate:\n   - One-time development/setup cost (must be ≤ $50K)\n   - Monthly operational expenses (must be ≤ $5K/month)\n   - Key cost components and assumptions\n2. Ensure all estimates are realistic for the GCC/MENA market\n3. Flag any streams that exceed the constraints\n4. Research actual development and operational costs in the GCC/MENA region\n5. Consult with the COO regarding operational requirements if needed\n\n{negotiation_instructions}",
+      "agent_id": "cto",
+      "expected_output": "A table of expense estimates for the 10 selected streams",
+      "context": ["venture_definition", "stream_ideation", "revenue_estimation"]
+    },
+    {
+      "id": "prioritization",
+      "description": "Select the 3 streams with the highest ROI and validation feasibility under $50K.\n\nRevenue Estimates: {revenue_estimation_task.output}\nExpense Estimates: {expense_estimation_task.output}\n\nYour task is to:\n1. Calculate ROI for each stream (consider both one-time costs and 12-month OPEX)\n2. Assess validation feasibility (how easily can the stream be tested with ≤ $50K)\n3. Select the top 3 streams based on ROI and validation feasibility\n4. Provide a 2-sentence rationale for each selected stream\n5. Research success rates of similar monetization approaches in the region\n6. Consult with the CFO and CDAO to validate your ROI calculations\n\n{negotiation_instructions}",
+      "agent_id": "cso",
+      "expected_output": "A table of the top 3 prioritized streams with rationale",
+      "context": ["venture_definition", "revenue_estimation", "expense_estimation"]
+    },
+    {
+      "id": "validation_strategy",
+      "description": "For each of the 3 prioritized streams, outline an MVP validation plan.\n\nPrioritized Streams: {prioritization_task.output}\n\nYour task is to:\n1. For each of the 3 streams, outline:\n   - Validation steps (what needs to be built/tested)\n   - Success criteria (what metrics indicate validation)\n   - Timeline (how long the validation will take)\n   - Estimated validation budget (must be ≤ $50K)\n2. Ensure the validation plan is lean, focused, and achievable\n3. Research successful MVP validation approaches in the GCC/MENA region\n4. Consult with the CXDO regarding user testing methodologies\n\n{negotiation_instructions}",
+      "agent_id": "cpo",
+      "expected_output": "Validation plans for the top 3 streams",
+      "context": ["venture_definition", "prioritization"]
+    },
+    {
+      "id": "pivot_implications",
+      "description": "For each of the 3 prioritized streams, state if it requires a business-model pivot.\n\nVenture Description: {venture_definition_task.output}\nPrioritized Streams: {prioritization_task.output}\n\nYour task is to:\n1. For each of the 3 streams, determine:\n   - If it requires a business-model pivot (e.g., B2C→B2B, one-time vs. subscription)\n   - What specific changes would be needed to the venture's core model\n   - Draft an adjusted one-sentence venture description that incorporates the pivot\n2. Be specific about how the pivot affects the venture's target market, value proposition, and operations\n3. Research successful pivots by similar ventures in the GCC/MENA region\n4. Consult with the CSO regarding alignment with the original vision\n\n{negotiation_instructions}",
+      "agent_id": "cpno",
+      "expected_output": "Pivot implications for the top 3 streams",
+      "context": ["venture_definition", "prioritization", "validation_strategy"]
+    },
+    {
+      "id": "workshop_summary",
+      "description": "Create a concise, actionable summary of the entire monetization workshop.\n\nYour task is to:\n1. Summarize the venture description in 1-2 sentences\n2. List the top 3 prioritized monetization streams with their key metrics:\n   - Estimated monthly revenue\n   - One-time development cost\n   - Monthly OPEX\n   - ROI\n   - Validation approach\n   - Pivot implications\n3. Provide final recommendations for which stream to pursue first and why\n4. Keep the summary to a single page (maximum 500 words)\n\nThis summary should be immediately actionable for an early-stage venture in the GCC/MENA region.\nFocus on clarity, brevity, and actionable insights.\n\n{negotiation_instructions}",
+      "agent_id": "cso",
+      "expected_output": "Concise, actionable workshop summary with recommendations",
+      "context": ["venture_definition", "prioritization", "validation_strategy", "pivot_implications"]
+    },
+    {
+      "id": "workshop_documentation",
+      "description": "Document the entire workshop process, capturing key discussions, decisions, and insights.\n\nYour task is to:\n1. Observe and document each step of the workshop process\n2. Capture the key discussions, negotiations, and decision points between agents\n3. Document the research findings, market insights, and data sources used\n4. Create a cohesive narrative that shows the evolution of ideas throughout the workshop\n5. Highlight the reasoning behind major decisions\n\nFor each workshop step, document:\n- The outcome (what was decided)\n- The explanation (how and why decisions were made)\n- The resources used (data sources, market benchmarks, etc.)\n- Any negotiations or discussions between agents\n\nFormat your documentation with these sections:\n# Workshop Documentation\n\n## Executive Summary\n[Brief overview of the entire workshop process and key outcomes]\n\n## Step 1: Venture Definition\n### Outcome\n[Clear description of the final venture definition]\n\n### Explanation\n[How the definition was developed, including research and reasoning]\n\n### Resources Used\n[Data sources and references consulted]\n\n[Continue with similar sections for each step of the workshop]\n\n## Key Insights and Learnings\n[The most important takeaways from the workshop]\n\n{negotiation_instructions}",
+      "agent_id": "historian",
+      "expected_output": "Comprehensive documentation of the entire workshop process",
+      "context": ["venture_definition", "high_level_streams", "stream_ideation", "revenue_estimation", "expense_estimation", "prioritization", "validation_strategy", "pivot_implications", "workshop_summary"]
+    }
+  ],
+  "negotiation_instructions": "Important Instructions:\n1. Use web search to gather up-to-date market data, benchmarks, and industry trends for the GCC/MENA region\n2. Actively negotiate and discuss with other agents when you need additional input\n3. Challenge assumptions and provide evidence for your conclusions\n4. Consider regional constraints and cultural factors specific to GCC/MENA markets\n\nFormat your response with these sections:\n# Outcome\n[Clear, concise results of your task]\n\n# Explanation\n[Detailed discussion of your process, research findings, and reasoning]\n\n# Resources Used\n[List of data sources, market benchmarks, and other references consulted]"
+}

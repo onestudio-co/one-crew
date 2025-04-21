@@ -1,15 +1,15 @@
-from crewai import Agent, Task, Crew, Process
+from crewai import Crew, Process
 from langchain_openai import ChatOpenAI
 import os
 import datetime
 import psutil
+import json
 from pathlib import Path
 from dotenv import load_dotenv
 from agents import create_agents
 from tasks import create_tasks
 from config import OPENAI_MODEL, AGENT_TEMPERATURE
 from utils import format_workshop_output
-from historian import create_historian_agent
 
 # Load environment variables
 load_dotenv()
@@ -27,12 +27,13 @@ llm = ChatOpenAI(
     tools=[{"type": "web_search"}]  # Enable web search capability
 )
 
-def run_venture_workshop(venture_idea):
+def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
     """
     Run the venture monetization workshop for a given idea.
 
     Args:
         venture_idea: A brief description of the venture idea
+        config_file: Path to the JSON configuration file
 
     Returns:
         The complete workshop output
@@ -46,26 +47,23 @@ def run_venture_workshop(venture_idea):
 
     print(f"Running monetization workshop for venture: {venture_idea}")
     print(f"Using model: {OPENAI_MODEL}")
+    print(f"Using configuration from: {config_file}")
 
     # Create agents
-    print("Creating specialized C-suite agents...")
-    agents = create_agents(llm)
+    print("Creating agents from configuration...")
+    agent_dict = create_agents(llm, config_file)
 
-    # Create historian agent
-    print("Creating Workshop Historian agent...")
-    historian_agent = create_historian_agent(llm)
-
-    # Add historian agent to the list of agents
-    agents.append(historian_agent)
+    # Convert agent dictionary to list for CrewAI
+    agents_list = list(agent_dict.values())
 
     # Create tasks
-    print("Setting up workshop tasks...")
-    tasks = create_tasks(agents, venture_idea)
+    print("Setting up workshop tasks from configuration...")
+    tasks = create_tasks(agent_dict, venture_idea, config_file)
 
     # Create the crew
     print("Assembling the crew...")
     crew = Crew(
-        agents=agents,
+        agents=agents_list,
         tasks=tasks,
         verbose=True,
         process=Process.sequential  # We need sequential for the stage-gating
@@ -223,9 +221,31 @@ if __name__ == "__main__":
     # Get venture idea from user
     venture_idea = input("\nVenture Idea: ")
 
+    # Ask for configuration file (optional)
+    config_file = input("\nConfiguration file (press Enter for default workshop_config.json): ")
+    if not config_file.strip():
+        config_file = "workshop_config.json"
+
+    # Verify the configuration file exists
+    if not os.path.exists(config_file):
+        print(f"\nError: Configuration file '{config_file}' not found.")
+        print("Please make sure the file exists and try again.")
+        exit(1)
+
+    # Load the configuration to display workshop name
+    try:
+        with open(config_file, "r") as f:
+            config = json.load(f)
+            workshop_name = config.get("workshop_name", "Venture Monetization Workshop")
+            print(f"\nRunning workshop: {workshop_name}")
+    except json.JSONDecodeError:
+        print(f"\nError: Configuration file '{config_file}' is not valid JSON.")
+        print("Please check the file format and try again.")
+        exit(1)
+
     try:
         # Run the workshop
-        result = run_venture_workshop(venture_idea)
+        result = run_venture_workshop(venture_idea, config_file)
 
         # Print the result
         print("\n\n" + "=" * 80)
@@ -234,7 +254,9 @@ if __name__ == "__main__":
         print(result)
 
         print(f"\nResults have been saved to venture_workshop_results.md")
-        print("\nThank you for using the GCC/MENA Venture Monetization Workshop!")
+        print(f"\nThank you for using the {workshop_name}!")
     except Exception as e:
         print(f"\nAn error occurred during the workshop: {e}")
         print("Please check the log files for more details.")
+        import traceback
+        traceback.print_exc()
