@@ -77,9 +77,11 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
         progress_report += f"## Completed Steps\n\n"
         for i, (task_name, task_output) in enumerate(completed_tasks.items(), 1):
             # Extract the outcome section if available
-            outcome = task_output
-            if "# Outcome" in task_output:
-                outcome = task_output.split("# Outcome")[1].split("# Explanation")[0].strip()
+            # Make sure task_output is a string
+            task_output_str = str(task_output)
+            outcome = task_output_str
+            if "# Outcome" in task_output_str:
+                outcome = task_output_str.split("# Outcome")[1].split("# Explanation")[0].strip()
 
             progress_report += f"### Step {i}: {task_name}\n\n"
             progress_report += f"#### Outcome\n{outcome}\n\n"
@@ -135,13 +137,17 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
         # Execute the task
         task_result = single_task_crew.kickoff()
 
-        # Store the task result
-        completed_tasks[task_name] = task_result
+        # Store the task result (convert CrewOutput to string)
+        if hasattr(task_result, 'raw'):
+            completed_tasks[task_name] = task_result.raw
+        else:
+            completed_tasks[task_name] = str(task_result)
 
         # Update the progress report
         update_progress_report(completed_tasks)
 
     # Format the final results
+    # All values in completed_tasks should now be strings
     formatted_result = format_workshop_output("\n\n".join(completed_tasks.values()))
 
     # Save the final report
