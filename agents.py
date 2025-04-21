@@ -1,5 +1,6 @@
 from crewai import Agent
 import json
+from langchain.tools import BaseTool
 from tools import (
     market_research_tool,
     financial_modeling_tool,
@@ -9,13 +10,21 @@ from tools import (
 )
 from config import AGENT_TEMPERATURE
 
+# Convert LangChain tools to CrewAI compatible format
+def convert_to_crewai_tool(lc_tool):
+    return {
+        "name": lc_tool.name,
+        "description": lc_tool.description,
+        "func": lc_tool._run
+    }
+
 # Map tool names to actual tool objects
 TOOL_MAP = {
-    "market_research_tool": market_research_tool,
-    "financial_modeling_tool": financial_modeling_tool,
-    "technical_assessment_tool": technical_assessment_tool,
-    "validation_experiment_tool": validation_experiment_tool,
-    "pivot_analysis_tool": pivot_analysis_tool
+    "market_research_tool": convert_to_crewai_tool(market_research_tool),
+    "financial_modeling_tool": convert_to_crewai_tool(financial_modeling_tool),
+    "technical_assessment_tool": convert_to_crewai_tool(technical_assessment_tool),
+    "validation_experiment_tool": convert_to_crewai_tool(validation_experiment_tool),
+    "pivot_analysis_tool": convert_to_crewai_tool(pivot_analysis_tool)
 }
 
 def create_agents(llm, config_file="workshop_config.json"):
