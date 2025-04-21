@@ -43,15 +43,21 @@ def create_agents(llm, config_file="workshop_config.json"):
                 tools.append(TOOL_MAP[tool_name])
 
         # Create the agent
-        agent = Agent(
-            role=agent_config["role"],
-            goal=agent_config["goal"],
-            backstory=agent_config["backstory"],
-            verbose=agent_config.get("verbose", True),
-            allow_delegation=agent_config.get("allow_delegation", True),
-            tools=tools if tools else None,
-            llm=llm
-        )
+        agent_kwargs = {
+            "role": agent_config["role"],
+            "goal": agent_config["goal"],
+            "backstory": agent_config["backstory"],
+            "verbose": agent_config.get("verbose", True),
+            "allow_delegation": agent_config.get("allow_delegation", True),
+            "llm": llm
+        }
+
+        # Only add tools if we have any
+        if tools:
+            agent_kwargs["tools"] = tools
+
+        # Create the agent
+        agent = Agent(**agent_kwargs)
 
         # Add the agent to the dictionary
         agents[agent_config["id"]] = agent

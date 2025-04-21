@@ -53,9 +53,6 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
     print("Creating agents from configuration...")
     agent_dict = create_agents(llm, config_file)
 
-    # Convert agent dictionary to list for CrewAI
-    agents_list = list(agent_dict.values())
-
     # Create tasks
     print("Setting up workshop tasks from configuration...")
     tasks = create_tasks(agent_dict, venture_idea, config_file)
@@ -63,7 +60,7 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
     # Create the crew
     print("Assembling the crew...")
     crew = Crew(
-        agents=agents_list,
+        agents=list(agent_dict.values()),  # Convert dictionary to list for CrewAI
         tasks=tasks,
         verbose=True,
         process=Process.sequential  # We need sequential for the stage-gating
