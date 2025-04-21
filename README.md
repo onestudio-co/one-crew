@@ -19,6 +19,7 @@ This application uses CrewAI to orchestrate a team of specialized AI agents that
 - **Latest AI Model**: Uses OpenAI's GPT-4.1 model with web browsing capabilities for up-to-date information
 - **Step-by-Step Reporting**: Generates progress reports after each step of the workshop
 - **Detailed Documentation**: Workshop Historian agent documents the entire process, including discussions and decision-making
+- **JSON Configuration**: Easily create custom workshops by modifying a JSON configuration file
 
 ## Workshop Steps
 
@@ -62,11 +63,17 @@ This application uses CrewAI to orchestrate a team of specialized AI agents that
 
 2. You will be prompted to enter a description of your venture idea.
 
-3. The system will run the workshop step by step, updating the progress report after each step.
+3. You can optionally specify a custom configuration file (default is `workshop_config.json`).
 
-4. The final report will be saved to `venture_workshop_results.md` and also in the `reports` directory with a timestamp.
+4. The system will run the workshop step by step, updating the progress report after each step.
 
-5. You can view the progress at any time by opening the `venture_workshop_results.md` file.
+5. The final report will be saved to `venture_workshop_results.md` and also in the `reports` directory with a timestamp.
+
+6. You can view the progress at any time by opening the `venture_workshop_results.md` file.
+
+### Custom Workshops
+
+You can create custom workshops by modifying the `workshop_config.json` file or creating a new configuration file. See [CONFIG_README.md](CONFIG_README.md) for detailed instructions on creating custom workshop configurations.
 
 ## Example
 
@@ -83,6 +90,8 @@ for your early-stage venture in the GCC/MENA region.
 Please provide a brief description of your venture idea:
 
 Venture Idea: A mobile app that connects local artisans in the GCC region with customers looking for handmade, authentic products.
+
+Configuration file (press Enter for default workshop_config.json):
 ```
 
 The system will then run the complete workshop and provide a detailed output with monetization strategies, validation plans, and recommendations.
@@ -120,6 +129,8 @@ venture-workshop/
 ├── tasks.py              # Workshop tasks and process flow
 ├── utils.py              # Utility functions
 ├── venture_workshop.py   # Main application entry point
+├── workshop_config.json  # JSON configuration for agents and tasks
+├── CONFIG_README.md      # Documentation for the configuration system
 └── reports/              # Generated reports directory
 ```
 
