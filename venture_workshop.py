@@ -4,12 +4,44 @@ import os
 import datetime
 import psutil
 import json
+import time
+import tiktoken
 from pathlib import Path
 from dotenv import load_dotenv
 from agents import create_agents
 from tasks import create_tasks
 from config import OPENAI_MODEL, AGENT_TEMPERATURE
 from utils import format_workshop_output
+
+# Cost tracking constants
+MODEL_COSTS = {
+    "gpt-4-1106-preview": {"input": 0.01, "output": 0.03},  # $0.01 per 1K input tokens, $0.03 per 1K output tokens
+    "gpt-4-0125-preview": {"input": 0.01, "output": 0.03},  # $0.01 per 1K input tokens, $0.03 per 1K output tokens
+    "gpt-4-turbo-preview": {"input": 0.01, "output": 0.03},  # $0.01 per 1K input tokens, $0.03 per 1K output tokens
+    "gpt-4": {"input": 0.03, "output": 0.06},  # $0.03 per 1K input tokens, $0.06 per 1K output tokens
+    "gpt-4-32k": {"input": 0.06, "output": 0.12},  # $0.06 per 1K input tokens, $0.12 per 1K output tokens
+    "gpt-3.5-turbo": {"input": 0.0015, "output": 0.002}  # $0.0015 per 1K input tokens, $0.002 per 1K output tokens
+}
+
+# Function to count tokens
+def count_tokens(text, model="gpt-4"):
+    """Count the number of tokens in a text string."""
+    try:
+        encoding = tiktoken.encoding_for_model(model)
+        return len(encoding.encode(text))
+    except Exception as e:
+        print(f"Error counting tokens: {e}")
+        # Fallback: estimate tokens as words / 0.75 (rough approximation)
+        return int(len(text.split()) / 0.75)
+
+# Function to calculate cost
+def calculate_cost(input_tokens, output_tokens, model=OPENAI_MODEL):
+    """Calculate the cost of API usage based on tokens and model."""
+    # Default to gpt-4 costs if model not found
+    costs = MODEL_COSTS.get(model, MODEL_COSTS["gpt-4"])
+    input_cost = (input_tokens / 1000) * costs["input"]
+    output_cost = (output_tokens / 1000) * costs["output"]
+    return input_cost + output_cost
 
 # Load environment variables
 load_dotenv()
@@ -68,11 +100,23 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
     )
 
     # Create a function to update the progress report
-    def update_progress_report(completed_tasks):
+    def update_progress_report(completed_tasks, task_costs=None):
         # Create a progress report
         progress_report = f"# GCC/MENA Venture Monetization Workshop - Progress Report\n\n"
         progress_report += f"## Venture Idea\n\n{venture_idea}\n\n"
         progress_report += f"## Progress: {len(completed_tasks)} of {len(tasks)} steps completed\n\n"
+
+        # Add cost summary if available
+        if task_costs:
+            total_cost = sum(cost_data["cost"] for cost_data in task_costs.values())
+            total_input_tokens = sum(cost_data["input_tokens"] for cost_data in task_costs.values())
+            total_output_tokens = sum(cost_data["output_tokens"] for cost_data in task_costs.values())
+            total_execution_time = sum(cost_data["execution_time"] for cost_data in task_costs.values())
+
+            progress_report += f"## Cost Summary\n\n"
+            progress_report += f"- **Total Cost**: ${total_cost:.4f}\n"
+            progress_report += f"- **Total Tokens**: {total_input_tokens:,} input, {total_output_tokens:,} output\n"
+            progress_report += f"- **Total Execution Time**: {total_execution_time:.2f} seconds\n\n"
 
         # Add completed steps
         progress_report += f"## Completed Steps\n\n"
@@ -82,10 +126,18 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
             task_output_str = str(task_output)
             outcome = task_output_str
             if "# Outcome" in task_output_str:
-                outcome = task_output_str.split("# Outcome")[1].split("# Explanation")[0].strip()
+                outcome = task_output_str.split("# Outcome")[1].split("# Collaboration Summary")[0].strip()
 
             progress_report += f"### Step {i}: {task_name}\n\n"
             progress_report += f"#### Outcome\n{outcome}\n\n"
+
+            # Add cost information if available
+            if task_costs and task_name in task_costs:
+                cost_data = task_costs[task_name]
+                progress_report += f"#### Task Metrics\n"
+                progress_report += f"- **Cost**: ${cost_data['cost']:.4f}\n"
+                progress_report += f"- **Tokens**: {cost_data['input_tokens']:,} input, {cost_data['output_tokens']:,} output\n"
+                progress_report += f"- **Execution Time**: {cost_data['execution_time']:.2f} seconds\n\n"
 
             # Add a link to the detailed explanation
             progress_report += f"[View detailed explanation](#step-{i}-details)\n\n"
@@ -100,7 +152,10 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
         # Add footer
         progress_report += "\n---\n\n"
         progress_report += f"*Progress report generated at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n"
-        progress_report += "*This workshop is being conducted using CrewAI with GPT-4.1 and web browsing capabilities.*\n"
+        progress_report += f"*This workshop is being conducted using {OPENAI_MODEL} with web browsing capabilities.*\n"
+        if task_costs:
+            total_cost = sum(cost_data["cost"] for cost_data in task_costs.values())
+            progress_report += f"*Estimated total cost: ${total_cost:.4f}*\n"
 
         # Save the progress report
         with open("venture_workshop_results.md", "w") as f:
@@ -119,13 +174,22 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
     print("This process will take some time as our agents work through each step.")
     print("Please be patient while the workshop is in progress.\n")
 
-    # Initialize an empty dictionary to store completed tasks
+    # Initialize empty dictionaries to store completed tasks and costs
     completed_tasks = {}
+    task_costs = {}
+    total_cost = 0
+    total_tokens = {"input": 0, "output": 0}
 
     # Execute each task sequentially and update the report after each one
     for i, task in enumerate(tasks):
         task_name = task.description.split('\n')[0].strip()
         print(f"\nExecuting task {i+1} of {len(tasks)}: {task_name}")
+
+        # Track start time
+        start_time = time.time()
+
+        # Estimate input tokens from task description
+        task_input_tokens = count_tokens(task.description, OPENAI_MODEL)
 
         # Special handling for the first task - use all agents
         if i == 0:  # First task - full team collaboration
@@ -141,25 +205,70 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
             # Execute the task with the full team
             task_result = full_team_crew.kickoff()
         else:  # All other tasks - single agent with collaboration
+            # Get collaborators from config
+            collaborators = []
+            with open(config_file, "r") as f:
+                config = json.load(f)
+                for task_config in config["tasks"]:
+                    if task_config["id"] == task.description.split('\n')[0].strip().lower().replace(" ", "_"):
+                        if "collaborators" in task_config:
+                            collaborator_ids = task_config["collaborators"]
+                            collaborators = [agent_dict[agent_id] for agent_id in collaborator_ids if agent_id in agent_dict]
+                        break
+
+            # If collaborators found, add them to the crew
+            if collaborators:
+                agents_for_task = [task.agent] + collaborators
+                print(f"Task will be executed by {task.agent.role} with collaboration from {', '.join([a.role for a in collaborators])}")
+            else:
+                agents_for_task = [task.agent]
+                print(f"Task will be executed by {task.agent.role} without specific collaborators")
+
             # Create a single-task crew to execute just this task
-            single_task_crew = Crew(
-                agents=[task.agent],
+            task_crew = Crew(
+                agents=agents_for_task,
                 tasks=[task],
                 verbose=True,
                 process=Process.hierarchical,  # Still use hierarchical for collaboration
                 manager_llm=llm  # Use the same LLM for the manager agent
             )
             # Execute the task
-            task_result = single_task_crew.kickoff()
+            task_result = task_crew.kickoff()
 
-        # Store the task result (convert CrewOutput to string)
+        # Calculate execution time
+        execution_time = time.time() - start_time
+
+        # Convert result to string and estimate output tokens
         if hasattr(task_result, 'raw'):
-            completed_tasks[task_name] = task_result.raw
+            task_output = task_result.raw
         else:
-            completed_tasks[task_name] = str(task_result)
+            task_output = str(task_result)
+
+        task_output_tokens = count_tokens(task_output, OPENAI_MODEL)
+
+        # Calculate cost
+        task_cost = calculate_cost(task_input_tokens, task_output_tokens, OPENAI_MODEL)
+        total_cost += task_cost
+        total_tokens["input"] += task_input_tokens
+        total_tokens["output"] += task_output_tokens
+
+        # Store the task result and metrics
+        completed_tasks[task_name] = task_output
+        task_costs[task_name] = {
+            "execution_time": execution_time,
+            "input_tokens": task_input_tokens,
+            "output_tokens": task_output_tokens,
+            "cost": task_cost
+        }
+
+        # Print cost information
+        print(f"\nTask completed in {execution_time:.2f} seconds")
+        print(f"Estimated tokens: {task_input_tokens:,} input, {task_output_tokens:,} output")
+        print(f"Estimated cost: ${task_cost:.4f}")
+        print(f"Total cost so far: ${total_cost:.4f}")
 
         # Update the progress report
-        update_progress_report(completed_tasks)
+        update_progress_report(completed_tasks, task_costs)
 
     # Format the final results
     # All values in completed_tasks should now be strings
