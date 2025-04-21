@@ -25,7 +25,7 @@ def create_tasks(agents, venture_idea, config_file="workshop_config.json"):
     task_objects = {}
 
     # Create tasks based on the configuration
-    for task_config in config["tasks"]:
+    for i, task_config in enumerate(config["tasks"]):
         # Replace placeholders in the description
         description = task_config["description"]
         description = description.replace("{venture_idea}", venture_idea)
@@ -37,18 +37,36 @@ def create_tasks(agents, venture_idea, config_file="workshop_config.json"):
                 placeholder = f"{{{context_task_id}_task.output}}"
                 description = description.replace(placeholder, f"{{{task_objects[context_task_id].output}}}")
 
-        # Add collaborative instructions to encourage agent discussion
-        collaborative_instructions = """
-        Important: This is a collaborative task. You should actively consult with other agents in the crew to get their perspectives and expertise. Consider the following:
-        1. Ask other agents for their input on specific aspects of the task
-        2. Request feedback on your initial ideas
-        3. Incorporate diverse viewpoints into your final output
-        4. Acknowledge contributions from other agents
+        # Special handling for the first task - full team collaboration
+        if i == 0:  # First task
+            team_collaboration_instructions = """
+            IMPORTANT: FULL TEAM COLLABORATION REQUIRED
 
-        The final output should represent a synthesis of the collective intelligence of the crew.
-        """
+            This is the first and most critical task of the workshop. ALL TEAM MEMBERS must actively participate.
 
-        description = description + "\n\n" + collaborative_instructions
+            Before finalizing your answer:
+            1. You MUST consult with EVERY other agent in the crew
+            2. Each agent must provide their unique perspective based on their role and expertise
+            3. Document each agent's contribution in your final output
+            4. Synthesize all perspectives into a cohesive recommendation
+            5. Only proceed when you have incorporated feedback from the entire team
+
+            Your final output must include a detailed collaboration section listing input from each agent.
+
+            The success of the entire workshop depends on getting this foundation right with full team input.
+            """
+            description = description + "\n\n" + team_collaboration_instructions
+        else:  # All other tasks
+            collaborative_instructions = """
+            Important: This is a collaborative task. You should actively consult with other agents in the crew to get their perspectives and expertise. Consider the following:
+            1. Ask other agents for their input on specific aspects of the task
+            2. Request feedback on your initial ideas
+            3. Incorporate diverse viewpoints into your final output
+            4. Acknowledge contributions from other agents
+
+            The final output should represent a synthesis of the collective intelligence of the crew.
+            """
+            description = description + "\n\n" + collaborative_instructions
 
         # Create the task
         task = Task(

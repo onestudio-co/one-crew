@@ -127,16 +127,30 @@ def run_venture_workshop(venture_idea, config_file="workshop_config.json"):
         task_name = task.description.split('\n')[0].strip()
         print(f"\nExecuting task {i+1} of {len(tasks)}: {task_name}")
 
-        # Create a single-task crew to execute just this task
-        single_task_crew = Crew(
-            agents=[task.agent],
-            tasks=[task],
-            verbose=True,
-            process=Process.sequential
-        )
-
-        # Execute the task
-        task_result = single_task_crew.kickoff()
+        # Special handling for the first task - use all agents
+        if i == 0:  # First task - full team collaboration
+            print("\nThis is the first task - engaging the entire team for collaboration...")
+            # Create a crew with all agents for the first task
+            full_team_crew = Crew(
+                agents=list(agent_dict.values()),  # All agents
+                tasks=[task],
+                verbose=True,
+                process=Process.hierarchical,  # Use hierarchical process for collaboration
+                manager_llm=llm  # Use the same LLM for the manager agent
+            )
+            # Execute the task with the full team
+            task_result = full_team_crew.kickoff()
+        else:  # All other tasks - single agent with collaboration
+            # Create a single-task crew to execute just this task
+            single_task_crew = Crew(
+                agents=[task.agent],
+                tasks=[task],
+                verbose=True,
+                process=Process.hierarchical,  # Still use hierarchical for collaboration
+                manager_llm=llm  # Use the same LLM for the manager agent
+            )
+            # Execute the task
+            task_result = single_task_crew.kickoff()
 
         # Store the task result (convert CrewOutput to string)
         if hasattr(task_result, 'raw'):

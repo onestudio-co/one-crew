@@ -96,7 +96,7 @@
   "tasks": [
     {
       "id": "venture_definition",
-      "description": "Define a clear, concise value proposition and description for the venture idea:\n\n{venture_idea}\n\nYour task is to:\n1. Craft a one-sentence value proposition that clearly articulates the unique value of this venture\n2. Write a one-paragraph description (no revenue details)\n3. Research similar ventures in the GCC/MENA region to ensure market fit\n\nEnsure the description is specific to the GCC/MENA market context and highlights the venture's unique value.\n{negotiation_instructions}",
+      "description": "[FULL TEAM TASK] Define a clear, concise value proposition and description for the venture idea:\n\n{venture_idea}\n\nThis is the MOST CRITICAL task of the workshop and requires input from ALL team members.\n\nYour task is to:\n1. Craft a one-sentence value proposition that clearly articulates the unique value of this venture\n2. Write a one-paragraph description (no revenue details)\n3. Research similar ventures in the GCC/MENA region to ensure market fit\n4. Gather input from EVERY C-suite member to ensure all perspectives are considered\n\nEnsure the description is specific to the GCC/MENA market context and highlights the venture's unique value.\n\nYour final output MUST include a section documenting input from each C-suite role.\n{negotiation_instructions}",
       "agent_id": "cso",
       "expected_output": "A one-sentence value proposition and one-paragraph venture description",
       "context": []
